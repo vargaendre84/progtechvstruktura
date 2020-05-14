@@ -8,7 +8,7 @@ public class Koltseg_Szef extends KoltsegDecorator
 
     @Override
     public String getKoltsegNem() {
-        return alapKoltseg.getKoltsegNem() + " + széf vásárlási és beszerelési költsége ";
+        return alapKoltseg.getKoltsegNem() + " széf vásárlási és beszerelési költsége, ";
     }
 
     @Override

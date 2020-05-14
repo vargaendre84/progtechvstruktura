@@ -26,7 +26,7 @@ public class BankszamlaKamatozasEsKoltseg
         assertEquals(expected, myEgyenleg.getUtolsoKamat(),0.0);
     }
 
-    double expected1 = 0;
+    double expected1 = 3*20000;
     @Test
     public void BankSzamlaKoltsegTest() throws Exception
     {

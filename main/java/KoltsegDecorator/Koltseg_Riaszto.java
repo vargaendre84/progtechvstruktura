@@ -10,7 +10,7 @@ public class Koltseg_Riaszto extends KoltsegDecorator
 
     @Override
     public String getKoltsegNem() {
-        return alapKoltseg.getKoltsegNem() + " + riasztó vásárlási, beszerelési és üzemeltetési költsége ";
+        return alapKoltseg.getKoltsegNem() + " riasztó vásárlási, beszerelési és üzemeltetési költsége, ";
     }
 
     @Override

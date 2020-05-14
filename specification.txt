@@ -98,6 +98,7 @@ MapPluszKamatozasEsKoltsegTest
 EUR és USD valuták árfolyamérték és árfolyamnyereség teszt
 USDArfolyamNyeresegtest
 EURArfolyamNyeresegtest
+ETHArfolyamNyeresegtest
 
 
 3)
@@ -116,4 +117,8 @@ ArfolyamTest
 6) 
 Bankszámla kamatozás és költségteszt
 BankszamlaKamatozasEsKoltseg
+
+7) 
+Kriptopénz bányászati menyniség, költség és árfolyam teszt
+BanyaszatMennyisegKoltseg
 

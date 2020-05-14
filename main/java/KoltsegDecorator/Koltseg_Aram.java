@@ -7,7 +7,7 @@ public class Koltseg_Aram extends KoltsegDecorator
 
     @Override
     public String getKoltsegNem() {
-        return alapKoltseg.getKoltsegNem() + " + éves áramdíj ";
+        return alapKoltseg.getKoltsegNem() + " éves áramdíj, ";
     }
 
     @Override

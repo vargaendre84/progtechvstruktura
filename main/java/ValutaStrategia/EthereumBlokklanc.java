@@ -3,7 +3,7 @@ package ValutaStrategia;
 public class EthereumBlokklanc
 {
     private String nev = "Ethereum Blokklánc";
-    private double forgalombanLevoMennyiseg = 101135552;  //Kriptopénz ABC könyv 229.oldal
+    private double forgalombanLevoMennyiseg = 101135552;  //forrás: Kriptopénz ABC könyv 229.oldal
 
     private static volatile EthereumBlokklanc instance = null;
 

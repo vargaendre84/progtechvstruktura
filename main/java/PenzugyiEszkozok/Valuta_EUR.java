@@ -9,7 +9,7 @@ public class Valuta_EUR extends Valuta
     ArfolyamStrategia arfolyam;
     KoltsegStrategia koltseg;
 
-    public Valuta_EUR(BeszerzesiStrategia beszerzes, ArfolyamStrategia arfolyam,KoltsegStrategia koltseg, String nev, String tipus)
+    public Valuta_EUR(BeszerzesiStrategia beszerzes, ArfolyamStrategia arfolyam, KoltsegStrategia koltseg, String nev, String tipus)
     {
         super(nev, tipus);
         this.beszerzes = beszerzes;

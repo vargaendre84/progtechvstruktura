@@ -42,6 +42,7 @@ public class Egyenleg    //greedy singleton
     {
         osszesKamat += novekmeny;
         utolsoHozzaadottKamat = novekmeny;
+        utolsoHozzaadottArfolyamNyereseg = 0;
     }
     public double getUtolsoKoltseg() { return utolsoHozzaadottKoltseg; }
     public double getOsszesKoltseg() { return osszesKoltseg; }
@@ -60,6 +61,7 @@ public class Egyenleg    //greedy singleton
     {
         osszesArfolyamNyereseg += novekmeny;
         utolsoHozzaadottArfolyamNyereseg = novekmeny;
+        utolsoHozzaadottKamat = 0;
     }
 
     public double getUtolsoTranzakcioMerleg() {return (utolsoHozzaadottKamat + utolsoHozzaadottArfolyamNyereseg - utolsoHozzaadottKoltseg);}

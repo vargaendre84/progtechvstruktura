@@ -14,7 +14,7 @@ public class Banyaszat
         {
             temp[i] = (KriptoValuta)ethereum.Clone();
         }
-        System.out.println(temp.length + " egységnyi " + nev + " lett kibányászva: ");
+        System.out.println(temp.length + " egységnyi " + nev + " lett kibányászva " + futamIdo + " év alatt");
         return temp;
     }
 }

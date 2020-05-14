@@ -10,13 +10,13 @@ public class KoltsegStrategia_Allampapir_EPSZ extends KoltsegStrategia_Allampapi
     public void KoltsegSzamitas()
     {
         Egyenleg myEgyenleg = Egyenleg.getInstance();
-        IKoltseg koltseg = new Koltseg_Alap();
+        IKoltseg koltseg;
         if(futamIdo < lejaratiIdo)
             koltseg = new Koltseg_VisszaValtas(new Koltseg_ErtekPapirSzamla(new Koltseg_Alap()));
         else koltseg = new Koltseg_ErtekPapirSzamla(new Koltseg_Alap());
         System.out.println(koltseg.getKoltsegNem());
         double aktualisKoltseg = koltseg.getKoltseg(nevErtek,futamIdo);
-        System.out.println("Költség: " + aktualisKoltseg);
         myEgyenleg.addKoltseg(aktualisKoltseg);
+        System.out.println("Költség: " + aktualisKoltseg);
     }
 }

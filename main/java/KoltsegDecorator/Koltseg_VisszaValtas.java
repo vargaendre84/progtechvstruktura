@@ -7,7 +7,7 @@ public class Koltseg_VisszaValtas extends KoltsegDecorator
 
     @Override
     public String getKoltsegNem() {
-        return alapKoltseg.getKoltsegNem() + " + visszaváltás járuléka ";
+        return alapKoltseg.getKoltsegNem() + " visszaváltás járuléka, ";
     }
 
     @Override

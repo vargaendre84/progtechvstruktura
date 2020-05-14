@@ -1,3 +1,7 @@
+import KoltsegDecorator.IKoltseg;
+import KoltsegDecorator.Koltseg_Alap;
+import KoltsegDecorator.Koltseg_Aram;
+import KoltsegDecorator.Koltseg_BanyaGep;
 import PenzugyiEszkozok.*;
 import Portfolio.Eredmeny;
 import ValutaStrategia.EthereumBlokklanc;
@@ -21,7 +25,7 @@ public class main {
         Egyenleg myEgyenleg = Egyenleg.getInstance();
         EthereumBlokklanc blokklanc = EthereumBlokklanc.getInstance();
 
-        long befektetes1 = 10000000;
+        long befektetes1 = 100000;
         int futamIdo = 3;
         int lejaratiIdo1 = 1;
         int lejaratiIdo5 = 5;
@@ -30,12 +34,12 @@ public class main {
         double kamatpremium = 0.014;
         double bankikamat = 0.0001;
         double kamatvaltozas = 0.005;
-        double veteliEURArfolyam = 319.0;
-        double veteliUSDArfolyam = 328;
+        double veteliEURArfolyam = 320.0;
+        double veteliUSDArfolyam = 328.0;
         double veteliETHArfolyam = 65570;
-        double aktualisEURArfolyam = 360.0;
-        double aktualisUSDArfolyam = 321.0;
-        double aktualisETHArfolyam = 67539.85;
+        double aktualisEURArfolyam = 360.0;  //2020.05.14
+        double aktualisUSDArfolyam = 331.0;  //2020.05.14
+        double aktualisETHArfolyam = 66712;  // 2020.05.14
         int cimletErtek = allamkincstar.getCimletErtek();
         int cimletekMaxSzama = allamkincstar.getCimletekMaxSzama();
 
@@ -52,14 +56,14 @@ public class main {
 
         BufferedReader reader =
                 new BufferedReader(new InputStreamReader(System.in));
-      /*
-        System.out.println("Adja meg milyen összeget akar befektetni: ");
-        befektetes = Integer.parseInt(reader.readLine());
+
+        /*System.out.println("Adja meg milyen összeget akar befektetni: (magyar Forint)");
+        befektetes1 = Integer.parseInt(reader.readLine());
         System.out.println("Hány évre szeretné lekötni? (maximum 5év lehetséges) ");
         futamIdo = Integer.parseInt(reader.readLine());
-        System.out.println("Melyik évben szeretné megvenni a papírt? ");
-        kezdoEv = Integer.parseInt(reader.readLine());
-    */
+        if (futamIdo < 1) futamIdo = 1;
+        else if (futamIdo > 5) futamIdo = 5;
+*/
         System.out.println("");
         Penzvalto penzvalto = new Penzvalto();
         Arfolyam_Euro euroValuta = new Arfolyam_Euro(penzvalto);
@@ -69,9 +73,11 @@ public class main {
         /*System.out.print("Adja meg az aktuális EUR vételi árfolyamot: ");
         aktualisEURArfolyam = Double.parseDouble(reader.readLine());
         System.out.print("Adja meg az aktuális USD vételi árfolyamot: ");
-        aktualisUSDArfolyam = Double.parseDouble(reader.readLine());*/
+        aktualisUSDArfolyam = Double.parseDouble(reader.readLine());
+        System.out.print("Adja meg az aktuális Ethereum vételi árfolyamot: ");
+        aktualisETHArfolyam = Double.parseDouble(reader.readLine());
         penzvalto.ArfolyamBeallitas(aktualisEURArfolyam,aktualisUSDArfolyam,aktualisETHArfolyam);
-
+*/
         System.out.println("Aktuális EUR, USD és ETH árfolyam frissítve: ");
         euroValuta.Display();
         dollarValuta.Display();
@@ -83,17 +89,18 @@ public class main {
 
         System.out.println("");
         AllamPapir EMAP2021_18 = new Allampapir_EMAP(new Vasarlas_EMAP(befektetes1), new Kamatozas_Normal(befektetes1,futamIdo,lejaratiIdo1,alapkamat25,false),
-                new KoltsegStrategia_Allampapir_JutalekEPSZ(befektetes1,lejaratiIdo1,futamIdo),
-                "EMAP 2021-18","Egyéves Állampapír");
-        AllamPapir PMAP2025J = new Allampapir_PMAP(new Vasarlas_PMAP(befektetes1), new Kamatozas_InflacioAlapu(befektetes1,lejaratiIdo5,futamIdo,kamatpremium,false),
-                new KoltsegStrategia_Allampapir_Jutalek(befektetes1,lejaratiIdo5,futamIdo),
-                "PMAP 2025-J", "Prémium Állampapír");
+                new KoltsegStrategia_Allampapir_EPSZ(befektetes1,lejaratiIdo1,futamIdo),
+                "EMAP 2021-18","Egyéves Állampapír értékpapír számlára");
+        AllamPapir PMAP2025J = new Allampapir_PMAP(new Vasarlas_PMAP(befektetes1), new Kamatozas_InflacioAlapu(befektetes1,lejaratiIdo5,futamIdo,kamatpremium,true),
+                new KoltsegStrategia_Allampapir_Alap(befektetes1,lejaratiIdo5,futamIdo),
+                "PMAP 2025-J", "Prémium Állampapír Államkincstár számlára");
         AllamPapir MAPPluszN2025_19 = new Allampapir_MAPPlusz(new Vasarlas_MAPPlusz(befektetes1),
                 new Kamatozas_Savos_Periodusos_Egyenletes(befektetes1,lejaratiIdo5,futamIdo,alapkamat35,lejaratiIdo1,kamatvaltozas),
-                new KoltsegStrategia_Allampapir_Jutalek(befektetes1,lejaratiIdo5,futamIdo),
-                "MAP Plusz N2025/19", "MÁP Plusz Állampapír");
+                new KoltsegStrategia_Allampapir_Alap(befektetes1,lejaratiIdo5,futamIdo),
+                "MAP Plusz N2025/19", "MÁP Plusz Állampapír Államkincstár számlára");
+
         System.out.println("");
-        System.out.println(EMAP2021_18.getNev());
+        System.out.println(EMAP2021_18.getNev()  + " " + EMAP2021_18.getTipus());
         EMAP2021_18.Vasarlas();
         EMAP2021_18.Kamatozas();
         EMAP2021_18.KoltsegSzamitas();
@@ -104,7 +111,7 @@ public class main {
         eredmenyek[0].koltseg = myEgyenleg.getUtolsoKoltseg();
         eredmenyek[0].merleg = myEgyenleg.getUtolsoTranzakcioMerleg();
 
-        System.out.println(PMAP2025J.getNev());
+        System.out.println(PMAP2025J.getNev() + " " + PMAP2025J.getTipus());
         PMAP2025J.Vasarlas();
         PMAP2025J.Kamatozas();
         PMAP2025J.KoltsegSzamitas();
@@ -114,7 +121,7 @@ public class main {
         eredmenyek[1].hozam = myEgyenleg.getUtolsoKamat();
         eredmenyek[1].koltseg = myEgyenleg.getUtolsoKoltseg();
         eredmenyek[1].merleg = myEgyenleg.getUtolsoTranzakcioMerleg();
-        MAPPluszN2025_19.getNev();
+        System.out.println(MAPPluszN2025_19.getNev());
         MAPPluszN2025_19.Vasarlas();
         MAPPluszN2025_19.Kamatozas();
         MAPPluszN2025_19.KoltsegSzamitas();
@@ -130,7 +137,7 @@ public class main {
                 new KoltsegStrategia_Bank(befektetes1,futamIdo),
                 "OTP Bank 2020 Április", "Forintos Bankszámla");
         System.out.println("");
-        System.out.println(otpBankBetet.getNev());
+        System.out.println(otpBankBetet.getNev() + " " +  otpBankBetet.getTipus());
         otpBankBetet.Beszerzes();
         otpBankBetet.Kamatozas();
         otpBankBetet.KoltsegSzamitas();
@@ -141,74 +148,84 @@ public class main {
         eredmenyek[3].koltseg = myEgyenleg.getUtolsoKoltseg();
         eredmenyek[3].merleg = myEgyenleg.getUtolsoTranzakcioMerleg();
 
-        Valuta otthonitrezor = new Valuta_HUF(new Beszerzes_KP(befektetes1),new KoltsegStrategia_KP(befektetes1), "Forint KP megtakarítás", "Ft Valuta");
-        Valuta otthonitrezorEur = new Valuta_EUR(new Beszerzes_KP(befektetes1),
+        Valuta otthonitrezor = new Valuta_HUF(new Beszerzes_KP(befektetes1),
+                new ArfolyamStrategia_HUF(befektetes1),
+                new KoltsegStrategia_KP(befektetes1),
+                "Forint KP megtakarítás Otthoni trezorban", "HUF Valuta");
+        Valuta parnaCihaEur = new Valuta_EUR(new Beszerzes_KP(befektetes1),
                 new ArfolyamStrategia_EUR(befektetes1,veteliEURArfolyam,aktualisEURArfolyam),
-                new KoltsegStrategia_KP(befektetes1),
+                new KoltsegStrategia_KP_ParnaCiha(befektetes1),
                 "Euró beszerzés 2020.02.20.", "EUR Valuta");
-        Valuta otthonitrezorUSD = new Valuta_USD(new Beszerzes_KP(befektetes1),
+        Valuta parnaCihaUSD = new Valuta_USD(new Beszerzes_KP(befektetes1),
                 new ArfolyamStrategia_USD(befektetes1,veteliUSDArfolyam,aktualisUSDArfolyam),
-                new KoltsegStrategia_KP(befektetes1),
+                new KoltsegStrategia_KP_ParnaCiha(befektetes1),
                 "USD beszerzés 2020.04.21.", "USD Valuta");
         System.out.println("");
-        System.out.println(otthonitrezor.getNev());
+        System.out.println(otthonitrezor.getNev() + " " + otthonitrezor.getTipus());
         otthonitrezor.Beszerzes();
+        otthonitrezor.ArfolyamNyereseg();
         otthonitrezor.KoltsegSzamitas();
         eredmenyek[4].nev = otthonitrezor.getNev();
         eredmenyek[4].nevErtek = myEgyenleg.getUtolsoHozzaadottNevertek();
         eredmenyek[4].tipus = otthonitrezor.getTipus();
-        eredmenyek[4].hozam = myEgyenleg.getUtolsoKamat();
+        eredmenyek[4].hozam = myEgyenleg.getUtolsoArfolyamNyereseg();
         eredmenyek[4].koltseg = myEgyenleg.getUtolsoKoltseg();
         eredmenyek[4].merleg = myEgyenleg.getUtolsoTranzakcioMerleg();
-        System.out.println(otthonitrezorEur.getNev());
-        otthonitrezorEur.Beszerzes();
-        otthonitrezorEur.ArfolyamNyereseg();
-        otthonitrezorEur.KoltsegSzamitas();
-        eredmenyek[5].nev = otthonitrezorEur.getNev();
+
+        System.out.println(parnaCihaEur.getNev()  + " " + parnaCihaEur.getTipus());
+        parnaCihaEur.Beszerzes();
+        parnaCihaEur.ArfolyamNyereseg();
+        parnaCihaEur.KoltsegSzamitas();
+        eredmenyek[5].nev = parnaCihaEur.getNev();
         eredmenyek[5].nevErtek = myEgyenleg.getUtolsoHozzaadottNevertek();
-        eredmenyek[5].tipus = otthonitrezorEur.getTipus();
-        eredmenyek[5].hozam = myEgyenleg.getUtolsoKamat();
+        eredmenyek[5].tipus = parnaCihaEur.getTipus();
+        eredmenyek[5].hozam = myEgyenleg.getUtolsoArfolyamNyereseg();
         eredmenyek[5].koltseg = myEgyenleg.getUtolsoKoltseg();
         eredmenyek[5].merleg = myEgyenleg.getUtolsoTranzakcioMerleg();
-        System.out.println(otthonitrezorUSD.getNev());
-        otthonitrezorUSD.Beszerzes();
-        otthonitrezorUSD.ArfolyamNyereseg();
-        otthonitrezorUSD.KoltsegSzamitas();
-        eredmenyek[6].nev = otthonitrezorUSD.getNev();
+
+        System.out.println(parnaCihaUSD.getNev()  + " " + parnaCihaUSD.getTipus());
+        parnaCihaUSD.Beszerzes();
+        parnaCihaUSD.ArfolyamNyereseg();
+        parnaCihaUSD.KoltsegSzamitas();
+        eredmenyek[6].nev = parnaCihaUSD.getNev();
         eredmenyek[6].nevErtek = myEgyenleg.getUtolsoHozzaadottNevertek();
-        eredmenyek[6].tipus = otthonitrezorUSD.getTipus();
-        eredmenyek[6].hozam = myEgyenleg.getUtolsoKamat();
+        eredmenyek[6].tipus = parnaCihaUSD.getTipus();
+        eredmenyek[6].hozam = myEgyenleg.getUtolsoArfolyamNyereseg();
         eredmenyek[6].koltseg = myEgyenleg.getUtolsoKoltseg();
         eredmenyek[6].merleg = myEgyenleg.getUtolsoTranzakcioMerleg();
 
         KriptoValuta ethereum2020 = new Kripto_Ethereum(new Beszerzes_Utalas(befektetes1),
                 new ArfolyamStrategia_Kripto_Ethereum(befektetes1,veteliETHArfolyam,aktualisETHArfolyam),
-                new KoltsegStrategia_Allampapir_EPSZ(befektetes1,lejaratiIdo1,futamIdo),"Ethereum 2020","KriptoValuta" );
+                new KoltsegStrategia_KriptoValuta(befektetes1),"Ethereum 2020","KriptoValuta" );
         System.out.println("");
-        System.out.println(ethereum2020.getNev());
+        System.out.println(ethereum2020.getNev() + " " + ethereum2020.getTipus());
         ethereum2020.Beszerzes();
         ethereum2020.ArfolyamNyereseg();
         ethereum2020.KoltsegSzamitas();
         eredmenyek[7].nev = ethereum2020.getNev();
         eredmenyek[7].nevErtek = myEgyenleg.getUtolsoHozzaadottNevertek();
         eredmenyek[7].tipus = ethereum2020.getTipus();
-        eredmenyek[7].hozam = myEgyenleg.getUtolsoKamat();
+        eredmenyek[7].hozam = myEgyenleg.getUtolsoArfolyamNyereseg();
         eredmenyek[7].koltseg = myEgyenleg.getUtolsoKoltseg();
         eredmenyek[7].merleg = myEgyenleg.getUtolsoTranzakcioMerleg();
 
         Banyaszat banyagep1 = new Banyaszat();
         KriptoValuta[] ethSorozat = banyagep1.kibocsatas(ethereum2020,"Bányászott Ethereum kriptovaluta",futamIdo);
         blokklanc.ujBanyaszottMennyisegHozzaadasa(ethSorozat.length);
+        System.out.println(ethSorozat.length + " egységnyi Ethereum létrehozva és hozzáadva a Blokklánchoz");
         myEgyenleg.addNevertek(ethSorozat.length*(long)aktualisETHArfolyam);
         myEgyenleg.addArfolyamNyereseg(ethSorozat.length*(long)aktualisETHArfolyam);
-        new KoltsegStrategia_Banyaszat(ethSorozat.length,futamIdo);
-        eredmenyek[8].nev = ethSorozat[0].getNev();
+        IKoltseg banyaszatiKoltseg = new Koltseg_Aram(new Koltseg_BanyaGep(new Koltseg_Alap()));
+        double aktualisKoltseg = banyaszatiKoltseg.getKoltseg(ethSorozat.length,futamIdo);
+        myEgyenleg.addKoltseg(aktualisKoltseg);
+
+        System.out.println("A bányászat költsége = " + aktualisKoltseg);
+        eredmenyek[8].nev = "Bányászott" + ethSorozat[0].getNev();
         eredmenyek[8].nevErtek = myEgyenleg.getUtolsoHozzaadottNevertek();
         eredmenyek[8].tipus = ethSorozat[0].getNev();
-        eredmenyek[8].hozam = myEgyenleg.getUtolsoKamat();
+        eredmenyek[8].hozam = myEgyenleg.getUtolsoArfolyamNyereseg();
         eredmenyek[8].koltseg = myEgyenleg.getUtolsoKoltseg();
         eredmenyek[8].merleg = myEgyenleg.getUtolsoTranzakcioMerleg();
-        System.out.println(ethSorozat.length + " egységnyi Ethereum létrehozva és hozzáadva a Blokklánchoz");
 
         System.out.println("");
         System.out.println("A portfólió összes névértéke= " + (long)myEgyenleg.getOsszesNevErtek());
@@ -216,16 +233,35 @@ public class main {
         System.out.println("A portfólió összes költsége= " + (long)myEgyenleg.getOsszesKoltseg());
         System.out.println("A portfólió egyenlege= " + (long)myEgyenleg.getMerleg());
 
-        Eredmeny legjobbBefektetes = eredmenyek[0];
+        Eredmeny kivalasztottBefektetes = eredmenyek[0];
         for(Eredmeny temp : eredmenyek)
         {
-            if( temp.merleg > legjobbBefektetes.merleg)
-                legjobbBefektetes = temp;
+            if( temp.hozam > kivalasztottBefektetes.hozam)
+                kivalasztottBefektetes = temp;
         }
         System.out.println("");
-        System.out.println("A legjobb befektetés neve: " + legjobbBefektetes.nev);
-        System.out.println(" -hozama: " + (long)legjobbBefektetes.hozam);
-        System.out.println(" -költsége: " + (long)legjobbBefektetes.koltseg);
-        System.out.println(" -mérlege: " + (long)legjobbBefektetes.merleg);
+        System.out.println("A legjobb hozamú befektetés neve, típusa: " + kivalasztottBefektetes.nev + " " + kivalasztottBefektetes.tipus);
+        System.out.println(" -névértéke: " + kivalasztottBefektetes.nevErtek);
+        System.out.println(" -hozama: " + kivalasztottBefektetes.hozam);
+        System.out.println(" -költsége: " + kivalasztottBefektetes.koltseg);
+        System.out.println(" -mérlege: " + kivalasztottBefektetes.merleg);
+
+        for(Eredmeny temp : eredmenyek)
+        {
+            if( temp.merleg > kivalasztottBefektetes.merleg)
+                kivalasztottBefektetes = temp;
+        }
+        System.out.println("");
+        System.out.println("A legjobb mérlegű befektetés neve, típusa: " + kivalasztottBefektetes.nev + " " + kivalasztottBefektetes.tipus);
+        System.out.println(" -névértéke: " + kivalasztottBefektetes.nevErtek);
+        System.out.println(" -hozama: " + kivalasztottBefektetes.hozam);
+        System.out.println(" -költsége: " + kivalasztottBefektetes.koltseg);
+        System.out.println(" -mérlege: " + kivalasztottBefektetes.merleg);
+
+        System.out.println("");
+        for(int i = 0; i < eredmenyek.length; i++)
+        {
+            System.out.println(eredmenyek[i].nev + " " + eredmenyek[i].hozam + " " + eredmenyek[i].koltseg + " " + eredmenyek[i].merleg);
+        }
     }
 }

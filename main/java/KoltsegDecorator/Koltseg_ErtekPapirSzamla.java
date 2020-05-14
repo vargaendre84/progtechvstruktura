@@ -8,7 +8,7 @@ public class Koltseg_ErtekPapirSzamla extends KoltsegDecorator
     @Override
     public String getKoltsegNem()
     {
-        return alapKoltseg.getKoltsegNem() + " + értékpapír számla éves díja ";
+        return alapKoltseg.getKoltsegNem() + " értékpapír számla éves díja, ";
     }
 
     @Override

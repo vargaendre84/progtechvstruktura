@@ -18,10 +18,10 @@ public class EURArfolyamNyeresegEsKoltseg
             new KoltsegStrategia_KP(befektetes1),
             "Euró beszerzés 2020.02.20.", "EUR");
     double expected1 = (10000000/330.0) * (360.0-330.0);
-
     @Test
     public void EurArfolyamNyeresegTest() throws Exception
     {
+
         Assert.assertTrue(true);
         otthonitrezorEur.ArfolyamNyereseg();
         assertEquals(expected1, myEgyenleg.getUtolsoArfolyamNyereseg(),0.0);
@@ -32,7 +32,7 @@ public class EURArfolyamNyeresegEsKoltseg
     {
         Assert.assertTrue(true);
         otthonitrezorEur.KoltsegSzamitas();
-        expected1 = 200000 + 100000 + 50000 + 120000 + 250000 + 480000 + 260000;
+        expected1 = 10000000 * 0.04 + 480000 * 1 + 200000 + 100000 + 50000 + 120000 + 250000;
         assertEquals(expected1, myEgyenleg.getUtolsoKoltseg(),0.0);
     }
 }

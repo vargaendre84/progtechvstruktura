@@ -18,7 +18,7 @@ public class KoltsegStrategia_KP extends KoltsegStrategia
         if(myEgyenleg.getOtthoniTrezorKialakitva())
         {
             System.out.println("Otthoni trezor rendszer már ki van alakítva, nem szükséges újra kifizetni az árát");
-            myEgyenleg.setUtolsoKoltseg(koltseg.getKoltseg(nevErtek,kpFutamido));
+            myEgyenleg.setUtolsoKoltseg(aktualisKoltseg);
         }
         else
         {

@@ -17,7 +17,8 @@ public class KoltsegStrategia_Banyaszat extends KoltsegStrategia
     {
         IKoltseg koltseg = new Koltseg_Aram(new Koltseg_BanyaGep(new Koltseg_Alap()));
         System.out.println(koltseg.getKoltsegNem());
-        double aktualisKoltseg = koltseg.getKoltseg(nevErtek, futamIdo);
+        double aktualisKoltseg = koltseg.getKoltseg(nevErtek,futamIdo);
+        myEgyenleg.addKoltseg(aktualisKoltseg);
         System.out.println("Költség: " + aktualisKoltseg);
     }
 }
